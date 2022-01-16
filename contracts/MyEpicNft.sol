@@ -63,6 +63,7 @@ contract MyEpicNft is ERC721URIStorage {
 
         // Mixes random words from all the arrays to produce one word and uses base svg to display them
         string memory finalSvg = string(abi.encodePacked(baseSvg, combinedWord, "</text></svg>"));
+        event NewEpicNFTMinted(address sender, uint256 tokenId);
 
         // Get all the JSON metadata in place and base64 encode it.
     string memory json = Base64.encode(
@@ -98,7 +99,7 @@ contract MyEpicNft is ERC721URIStorage {
         console.log("An NFT w/ ID %s has been minted to %s", newItemId, msg.sender);
 
         //Increment the counter for when next NFT is minted
-        
+        emit NewEpicNFTMinted(msg.sender, newItemId);
     }
 
 }
