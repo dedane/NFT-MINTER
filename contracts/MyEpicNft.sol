@@ -18,6 +18,8 @@ contract MyEpicNft is ERC721URIStorage {
     string[] firstWords = ["Chapati", "NyamaChoma", "Mutura", "Samosa"];
     string[] secondWords = ["Kanairo", "Chuom", "ChapoSmokie", "Thufu"];
     string[] thirdWords = ["Sheng", "Sosa", "Twende", "Kenya"];
+    //Generated messages that can be used to generate tokenids and show progress of minting of Nft
+    event NewEpicNFTMinted(address sender, uint256 tokenId);
     constructor () ERC721 ("SquareNft", "SQUARE"){
         console.log("This is my Nft");
     }
@@ -63,7 +65,7 @@ contract MyEpicNft is ERC721URIStorage {
 
         // Mixes random words from all the arrays to produce one word and uses base svg to display them
         string memory finalSvg = string(abi.encodePacked(baseSvg, combinedWord, "</text></svg>"));
-        event NewEpicNFTMinted(address sender, uint256 tokenId);
+        
 
         // Get all the JSON metadata in place and base64 encode it.
     string memory json = Base64.encode(
