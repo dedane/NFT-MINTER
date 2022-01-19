@@ -18,6 +18,10 @@ contract MyEpicNft is ERC721URIStorage {
     string[] firstWords = ["Chapati", "NyamaChoma", "Mutura", "Samosa"];
     string[] secondWords = ["Kanairo", "Chuom", "ChapoSmokie", "Thufu"];
     string[] thirdWords = ["Sheng", "Sosa", "Twende", "Kenya"];
+
+
+    // Get fancy with it! Declare a bunch of colors.
+  string[] colors = ["#238534", "#08C2A8", "#4f8ec1", "#f7dbd5", "#220a00", "#882d17"];
     //Generated messages that can be used to generate tokenids and show progress of minting of Nft
     event NewEpicNFTMinted(address sender, uint256 tokenId);
     constructor () ERC721 ("SquareNft", "SQUARE"){
@@ -46,6 +50,12 @@ contract MyEpicNft is ERC721URIStorage {
        return thirdWords[rand];
     }
 
+      // Same old stuff, pick a random color.
+  function pickRandomColor(uint256 tokenId) public view returns (string memory) {
+    uint256 rand = random(string(abi.encodePacked("COLOR", Strings.toString(tokenId))));
+    rand = rand % colors.length;
+    return colors[rand];
+  }
      function random(string memory input) internal pure returns (uint256) {
       return uint256(keccak256(abi.encodePacked(input)));
   }
@@ -62,9 +72,11 @@ contract MyEpicNft is ERC721URIStorage {
         string memory second = pickRandomSecondWord(newItemId);
         string memory third = pickRandomThirdWord(newItemId);
          string memory combinedWord = string(abi.encodePacked(first, second, third));
+        // Generate a random color
+        string memory randomColor = pickRandomColor(newItemId);
 
         // Mixes random words from all the arrays to produce one word and uses base svg to display them
-        string memory finalSvg = string(abi.encodePacked(baseSvg, combinedWord, "</text></svg>"));
+        string memory finalSvg = string(abi.encodePacked(baseSvg, randomColor, combinedWord, "</text></svg>"));
         
 
         // Get all the JSON metadata in place and base64 encode it.
@@ -104,9 +116,6 @@ contract MyEpicNft is ERC721URIStorage {
         emit NewEpicNFTMinted(msg.sender, newItemId);
     }
 
-    function getTotalNFTsMintedSoFar() public {
-        //require that i can only mint 50 NFTs at a time
-        require(_tokenIds.current() <= 50, "Can only mint 50 NFTs at a time");
-    }
+   
 
 }
