@@ -111,11 +111,15 @@ contract MyEpicNft is ERC721URIStorage {
 
         _tokenIds.increment();
         console.log("An NFT w/ ID %s has been minted to %s", newItemId, msg.sender);
+        require( newItemId < 50, "All 50 NFTs have been minted.");
 
         //Increment the counter for when next NFT is minted
         emit NewEpicNFTMinted(msg.sender, newItemId);
     }
-
-   
+        //Get total nfts minted
+        function getTotalNftsMinted() public view returns (uint) {
+            return _tokenIds.current();
+            
+        }
 
 }
