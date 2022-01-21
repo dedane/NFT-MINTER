@@ -1,4 +1,5 @@
 require("@nomiclabs/hardhat-waffle");
+
 require('dotenv').config()
 
 // This is a sample Hardhat task. To learn how to create your own go to
@@ -26,6 +27,6 @@ module.exports = {
     },
   },
   etherscan: {
-    apiKey: 'MY_ETHERSCAN_API_KEY',
+    apiKey: process.env.MY_ETHERSCAN_API_KEY,
   }
 };
