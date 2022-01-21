@@ -25,4 +25,7 @@ module.exports = {
       accounts: [process.env.YOUR_PRIVATE_RINKEBY_ACCOUNT_KEY],
     },
   },
+  etherscan: {
+    apiKey: 'MY_ETHERSCAN_API_KEY',
+  }
 };
